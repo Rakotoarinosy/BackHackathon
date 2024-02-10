@@ -17,7 +17,7 @@ router.use( (req, res, next) => {
 
 
 
-router.get('/arret', controlleur_C.getAllArret)
+router.post('/getPersonne', controlleur_C.getPersonnePa)
 router.post('/addPersonne', controlleur_C.addPersonne)
 router.post('/removePersonne', controlleur_C.removePersonne)
 

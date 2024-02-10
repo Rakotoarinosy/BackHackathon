@@ -63,8 +63,6 @@ exports.removePersonne = async (req, res, next) => {
                     nbpa: updateNb
                 },
               })
-
-        
             return res.json(rep)
 
     } catch (error) {
@@ -74,8 +72,9 @@ exports.removePersonne = async (req, res, next) => {
 };
 
 
-exports.getAllArret = async (req, res, next) => {
+exports.getPersonnePa = async (req, res, next) => {
     try {
+        console.log("fdz")
         const rep = await prisma.typeBusArret.findMany({
             where: {
                 arretId: req.body.arretId,

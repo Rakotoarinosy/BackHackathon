@@ -199,5 +199,15 @@ Content-Type: application/json
 {
   "arretId": 1,
   "typeBusId": 1,
-  "nb": 1,
+  "nb": 1
+}
+
+//GET NB PERSONNE
+###
+post http://localhost:5000/arret/getPersonne
+Content-Type: application/json
+
+{
+  "arretId": 1,
+  "typeBusId": 1
 }

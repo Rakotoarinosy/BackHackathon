@@ -87,6 +87,7 @@ model Arret{
   nom                         String
   typeBusArret                TypeBusArret[]
   busCheckPoint               busCheckPoint[]
+  coordonneeArret             CoordonneeArret[]
 }
 
 model TypeBusArret {
@@ -115,4 +116,18 @@ model busCheckPoint {
   checkPoint                  CheckPoint                @relation(fields: [checkPointId], references: [id])
 }
 
+model Coordonnee {
+  id                          Int                       @id @default(autoincrement())
+  lat                         Float
+  long                        Float
+  coordonneeArret             CoordonneeArret[]
+}
+
+model CoordonneeArret {
+  id                          Int                       @id @default(autoincrement())
+  coordonneeId                Int
+  arretId                     Int
+  coordonnee                  Coordonnee                @relation(fields: [coordonneeId],references: [id])
+  arret                       Arret                     @relation(fields: [arretId],references: [id])
+}
 
