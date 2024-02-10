@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 
 const router = require('express').Router();
 
-const auth_C = require('../controllers/auth')
+const controlleur_C = require('../controllers/controlleur')
 const { PrismaClient } = require('@prisma/client')
 
 
@@ -17,7 +17,7 @@ router.use( (req, res, next) => {
 
 
 
-router.post('/bus', auth_C.bus)
+router.get('/arret', controlleur_C.getAllArret)
 
 
 

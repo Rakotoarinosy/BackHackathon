@@ -33,8 +33,8 @@ app.get('/', async (req, res, next) => {
 
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
-app.use('/controlleur', controlleurRouter);
-app.use('/receveur', receveurRouter);
+app.use('/arret', arretRouter);
+app.use('/bus', busRouter);
 
 
 
