@@ -17,7 +17,6 @@ model User {
   nom                         String
   email                       String
   password                    String
-  typeBusId                     Int
   statu_user_role             Statu_user_role[]
   user_image                  UserImage[] 
 }
