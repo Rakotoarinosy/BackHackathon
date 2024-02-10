@@ -173,9 +173,31 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:5000/user/userByToken
+post http://localhost:5000/user/UserByToken
 Content-Type: application/json
 
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibm9tIjoibmV3VXNlciIsImVtYWlsIjoicmFrQGdtYWlsLmNvbSIsImlhdCI6MTcwNzU3Mjg4NiwiZXhwIjoxNzA3NTc2NDg2fQ.kpKbfNIBeaCn8QXmksecxEVcajvPHFV14EVPcE7XyVA"
+}
+
+//ADD PERSONNE
+###
+post http://localhost:5000/arret/addPersonne
+Content-Type: application/json
+
+{
+  "arretId": 1,
+  "typeBusId": 1
+}
+
+//REMOVE PERSONEE
+
+###
+post http://localhost:5000/arret/removePersonne
+Content-Type: application/json
+
+{
+  "arretId": 1,
+  "typeBusId": 1,
+  "nb": 1,
 }

@@ -114,3 +114,5 @@ model busCheckPoint {
   arret                       Arret                     @relation(fields: [arretId], references: [id])
   checkPoint                  CheckPoint                @relation(fields: [checkPointId], references: [id])
 }
+
+
