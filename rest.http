@@ -211,3 +211,7 @@ Content-Type: application/json
   "arretId": 1,
   "typeBusId": 1
 }
+
+//GET TRAJET
+###
+get http://localhost:5000/arret/getTrajet/1

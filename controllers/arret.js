@@ -74,7 +74,6 @@ exports.removePersonne = async (req, res, next) => {
 
 exports.getPersonnePa = async (req, res, next) => {
     try {
-        console.log("fdz")
         const rep = await prisma.typeBusArret.findMany({
             where: {
                 arretId: req.body.arretId,
@@ -82,6 +81,53 @@ exports.getPersonnePa = async (req, res, next) => {
             }
         }) 
         return res.json(rep[0].nbpa)
+
+    } catch (error) {
+        next(error)
+    }
+
+};
+
+
+exports.getTrajet = async (req, res, next) => {
+    try {
+        typeBusId = req.params.id
+
+        const rep = await prisma.typeBusArret.findMany({
+            where: {
+                typeBusId: req.body.typeBusId
+            }
+        }) 
+
+
+        trajet = []
+        await Promise.all(
+        rep.map(async (element)  => {
+        
+            const arret = await prisma.arret.findUnique({
+               
+                where:{
+                    id: element.arretId
+                },
+                include: {
+                    coordonneeArret: {
+                      include: {
+                        coordonnee: true
+                      }
+                    }
+                  }
+            
+            })
+            let data = {
+                "nomArret" : arret.nom,
+                "lat": arret.coordonneeArret[0].coordonnee.lat,
+                "long": arret.coordonneeArret[0].coordonnee.long,
+                "nbpa": element.nbpa,
+            }
+            trajet.push(data)
+        
+        }))
+        return res.json(trajet)
 
     } catch (error) {
         next(error)
