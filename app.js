@@ -21,8 +21,8 @@ app.use(cors())
 
 const userRouter=require('./routes/user');
 const authRouter=require('./routes/auth');
-const controlleurRouter=require('./routes/controlleur');
-const receverRouter=require('./routes/receveur');
+const arretRouter=require('./routes/arret');
+const busRouter=require('./routes/bus');
 
 
 

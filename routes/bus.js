@@ -17,9 +17,9 @@ router.use( (req, res, next) => {
 
 
 
-router.post('/bus', bus_C.addBus)
+router.post('/createBus', bus_C.addBus)
 router.get('/', bus_C.getAllBus)
-router.put('/updatebus', bus_C.updateBus)
+router.patch('/updateBus', bus_C.updateBus)
 router.get('/:id', bus_C.getBus)
 
 
