@@ -9,3 +9,116 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+ 
+model User {
+  id                          Int                       @id @default(autoincrement())
+  nom                         String
+  email                       String
+  password                    String
+  typeBusId                     Int
+  statu_user_role             Statu_user_role[]
+  user_image                  UserImage[] 
+  typeBus                     TypeBus                   @relation(fields: [typeBusId], references: [id])
+}
+
+
+model Role {
+  id                          Int                       @id @default(autoincrement())
+  nom                         String
+  statu_user_role             Statu_user_role[]
+}
+
+model Statu {
+  id                          Int                       @id @default(autoincrement())
+  labelle                     String
+  role                        Statu_user_role[]
+}
+
+model Statu_user_role {
+  id                          Int                       @id @default(autoincrement())
+  userId                      Int
+  roleId                      Int                 
+  statuId                     Int                 
+  date                        DateTime                  @default(now())
+  Role                        Role                      @relation(fields: [roleId], references: [id])
+  Statu                       Statu                     @relation(fields: [statuId], references: [id])
+  user                        User                      @relation(fields: [userId], references: [id])
+}
+
+
+model Image {
+  id                          Int                       @id @default(autoincrement())
+  nom                         String
+  user_image                  UserImage[]
+
+}
+
+model UserImage {
+  id                          Int                       @id @default(autoincrement())
+  userId                      Int
+  imageId                     Int
+  date                        DateTime                  @default(now())
+  image                       Image                     @relation(fields: [imageId], references: [id])
+  user                        User                      @relation(fields: [userId], references: [id])
+}
+
+model TypeBus {
+  id                          Int                       @id @default(autoincrement())
+  nom                         String
+  user                        User[]
+  bus                         Bus[]
+  typeBusArret                TypeBusArret[]
+  busCheckPoint               busCheckPoint[]
+}
+
+model Bus {
+  id                          Int                       @id @default(autoincrement())
+  nom                         String
+  matricule                   String
+  idStatu                     Int
+  typeBusId                   Int
+  typeBus                     TypeBus                   @relation(fields: [typeBusId], references: [id])
+  
+}
+
+model Arret{
+  id                          Int                       @id @default(autoincrement())
+  nom                         String
+  typeBusArret                TypeBusArret[]
+  busCheckPoint               busCheckPoint[]
+}
+
+model TypeBusArret {
+  id                          Int                       @id @default(autoincrement())
+  typeBusId                   Int
+  arretId                     Int 
+  typeBus                     TypeBus                   @relation(fields: [typeBusId], references: [id])
+  arret                       Arret                     @relation(fields: [arretId], references: [id])
+}
+
+
+model TrainGare {
+  id                          Int                       @id @default(autoincrement())
+  busId                       Int
+  typeBusId                   Int
+  placeDispo                  Int                       @default(10)
+  date                        DateTime                  @default(now())
+}
+
+
+model CheckPoint {
+  id                          Int                       @id @default(autoincrement())
+  nom                         String 
+  busCheckPoint               busCheckPoint[]
+}
+
+model busCheckPoint {
+  id                          Int                       @id @default(autoincrement())
+  typeBusId                   Int
+  arretId                     Int
+  checkPointId                Int
+  typeBus                     TypeBus                   @relation(fields: [typeBusId], references: [id])
+  arret                       Arret                     @relation(fields: [arretId], references: [id])
+  checkPoint                  CheckPoint                @relation(fields: [checkPointId], references: [id])
+}
