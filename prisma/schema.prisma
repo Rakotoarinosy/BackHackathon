@@ -18,7 +18,9 @@ model User {
   email                       String
   password                    String
   statu_user_role             Statu_user_role[]
-  user_image                  UserImage[] 
+  user_image                  UserImage[]
+  userBus                     userBus[]
+  userArret                   userArret[]
 }
 
 
@@ -80,6 +82,7 @@ model Bus {
   idStatu                     Int
   typeBusId                   Int
   typeBus                     TypeBus                   @relation(fields: [typeBusId], references: [id])
+  userBus                     userBus[]
 }
 
 model Arret{
@@ -88,6 +91,7 @@ model Arret{
   typeBusArret                TypeBusArret[]
   busCheckPoint               busCheckPoint[]
   coordonneeArret             CoordonneeArret[]
+  userArret                   userArret[]
 }
 
 model TypeBusArret {
@@ -131,3 +135,18 @@ model CoordonneeArret {
   arret                       Arret                     @relation(fields: [arretId],references: [id])
 }
 
+model userBus {
+  id                          Int                       @id @default(autoincrement())
+  userId                      Int
+  busId                       Int
+  user                        User                      @relation(fields: [userId],references: [id])
+  bus                         Bus                       @relation(fields: [busId], references: [id])
+}
+
+model userArret {
+  id                          Int                       @id @default(autoincrement())
+  userId                      Int
+  arretId                     Int
+  user                        User                      @relation(fields: [userId],references: [id])
+  arret                       Arret                     @relation(fields: [arretId], references: [id])
+}
