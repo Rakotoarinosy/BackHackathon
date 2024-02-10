@@ -2,7 +2,8 @@ const bcrypt = require('bcrypt');
 
 const router = require('express').Router();
 
-const controlleur_C = require('../controllers/arret')
+
+const arret_C = require('../controllers/arret')
 const { PrismaClient } = require('@prisma/client')
 
 
@@ -14,6 +15,7 @@ router.use( (req, res, next) => {
   console.log('AUTH Time:', event.toString())
   next()
 })
+
 
 
 
