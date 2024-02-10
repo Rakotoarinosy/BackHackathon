@@ -323,7 +323,7 @@ exports.getUserByToken = async (req , res, next) => {
         },
         include : {
           user_image: true,
-          
+          statu_user_role: true
         }
 
       })
@@ -348,19 +348,20 @@ exports.getUserByToken = async (req , res, next) => {
                   "id"  : element.id,
                   "nom" : element.nom,
                   "email"  : element.email,
-                  "user_image" : nomImage
+                  "user_image" : nomImage,
+                  "roleId": user[0].statu_user_role[0].roleId
                 }
                 data.push(db)
-                console.log(data)
               }
               
             }))
       } else {
-        
+
         let db =  {
             "id"  : user[0].id,
             "nom" : user[0].nom,
             "email"  : user[0].email,
+            "roleId": user[0].statu_user_role[0].roleId
           }
 
           data.push(db)

@@ -73,6 +73,7 @@ model TypeBus {
   bus                         Bus[]
   typeBusArret                TypeBusArret[]
   busCheckPoint               busCheckPoint[]
+  busTypeBus                  BusTypeBus[]
 }
 
 model Bus {
@@ -83,6 +84,7 @@ model Bus {
   typeBusId                   Int
   typeBus                     TypeBus                   @relation(fields: [typeBusId], references: [id])
   userBus                     userBus[]
+  busTypeBus                  BusTypeBus[]
 }
 
 model Arret{
@@ -149,4 +151,12 @@ model userArret {
   arretId                     Int
   user                        User                      @relation(fields: [userId],references: [id])
   arret                       Arret                     @relation(fields: [arretId], references: [id])
+}
+
+model BusTypeBus {
+  id                          Int                       @id @default(autoincrement())
+  busId                       Int
+  typeBusId                   Int
+  bus                         Bus                       @relation(fields: [busId], references: [id])
+  typeBus                     TypeBus                   @relation(fields: [typeBusId], references: [id])
 }

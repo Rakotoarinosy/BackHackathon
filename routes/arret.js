@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const router = require('express').Router();
 
 
-const arret_C = require('../controllers/arret')
+const controlleur_C = require('../controllers/arret')
 const { PrismaClient } = require('@prisma/client')
 
 
