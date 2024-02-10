@@ -20,8 +20,9 @@ Content-Type: application/json
 
 {
     "nom": "newUser",
-    "email": "newUser@gmail.com",
-    "password": "newUser"
+    "email": "rak@gmail.com",
+    "password": "123456",
+    "roleId": 1
 } 
 
 ###
@@ -40,7 +41,7 @@ POST http://localhost:5000/auth/login
 Content-Type: application/json
 
 {
-    "email": "rabe@gmail.com",
+    "email": "rak@gmail.com",
     "password": "123456"
 } 
 
@@ -172,4 +173,9 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:5000/ticket
+GET http://localhost:5000/user/userByToken
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibm9tIjoibmV3VXNlciIsImVtYWlsIjoicmFrQGdtYWlsLmNvbSIsImlhdCI6MTcwNzU3Mjg4NiwiZXhwIjoxNzA3NTc2NDg2fQ.kpKbfNIBeaCn8QXmksecxEVcajvPHFV14EVPcE7XyVA"
+}

@@ -57,7 +57,6 @@ exports.login = async (req, res, next) => {
             email: user[0].email
         }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_DURING})
         
-        console.log("tonga ato")
 
         //recuperation du role de l'utilisateur
 
@@ -93,13 +92,7 @@ exports.login = async (req, res, next) => {
 
 
         return res.json({
-          access_token: token,
-          id: user[0].id,
-          nom: user[0].nom,
-          email: user[0].nom,
-          role: role,
-          image: image,
-          
+          access_token: token,        
         })
       
       

@@ -303,6 +303,7 @@ exports.getUserByToken = async (req , res, next) => {
 
   const token = req.body.token
 
+
   try {
     const decodedToken = jwt.decode(token);
     
@@ -333,29 +334,41 @@ exports.getUserByToken = async (req , res, next) => {
       }
 
       let data = []
+
+      if(user[0].user_image.length != 0) 
+      {
+        await Promise.all(
+            user.map(async (element) =>
+            { 
+              let nomImage = await getImageNom(element.user_image[0].imageId)
+              if(nomImage) {
       
-      await Promise.all(
-      user.map(async (element) =>
-      { 
-        let nomImage = await getImageNom(element.user_image[0].imageId)
-        if(nomImage) {
-
-          console.log(nomImage)
-          let db =  {
-            "id"  : element.id,
-            "nom" : element.nom,
-            "email"  : element.email,
-            "phone" : element.phone,
-            "CIN"  : element.CIN,
-            "user_image" : nomImage
-          }
-          data.push(db)
-          console.log(data)
-        }
+                console.log(nomImage)
+                let db =  {
+                  "id"  : element.id,
+                  "nom" : element.nom,
+                  "email"  : element.email,
+                  "user_image" : nomImage
+                }
+                data.push(db)
+                console.log(data)
+              }
+              
+            }))
+      } else {
         
-      }))
-       
+        let db =  {
+            "id"  : user[0].id,
+            "nom" : user[0].nom,
+            "email"  : user[0].email,
+          }
 
+          data.push(db)
+
+      }
+
+     
+    
       return res.json(data)
     
     
