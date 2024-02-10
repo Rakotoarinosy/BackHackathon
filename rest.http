@@ -215,3 +215,14 @@ Content-Type: application/json
 //GET TRAJET
 ###
 get http://localhost:5000/arret/getTrajet/1
+
+
+//GET TRAJET BY ARRET
+###
+post http://localhost:5000/arret/getTrajetByArret
+Content-Type: application/json
+
+{
+   "start": "Mahamasina",
+   "end" : "Tsiadana akondro"
+}

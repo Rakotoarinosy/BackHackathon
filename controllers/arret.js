@@ -135,3 +135,62 @@ exports.getTrajet = async (req, res, next) => {
 
 };
 
+
+
+exports.getTrajetByArret = async (req, res, next) => {
+    try {
+
+        let start = req.body.start
+        let end = req.body.end
+// GET ID COORDONNEE 
+        const rep = await prisma.arret.findMany({
+            include: {
+                typeBusArret: true
+            },
+            where: {
+              OR: [
+                {
+                  nom: start
+                },
+                {
+                  nom: end
+                }
+              ]
+            }
+          });
+          console.log(rep)
+          let elementCount = new Map();
+          let duplicates = [];
+
+          await Promise.all(
+          rep.map((element)  => {
+
+            testElement = element.typeBusArret[0].typeBusId
+            if (elementCount.has(testElement)) {
+                duplicates.push(testElement)
+            } else {
+                elementCount.set(testElement,  1);
+              }
+            })
+          )
+
+          await Promise.all(
+            duplicates.map((element)  => {
+              console.log(element)
+            }))
+
+        return res.json(duplicates)
+
+    } catch (error) {
+        next(error)
+    }
+
+};
+
+
+
+
+
+
+
+
