@@ -17,7 +17,7 @@ router.use( (req, res, next) => {
 
 
 
-router.post('/bus', auth_C.bus)
+router.post('/login', auth_C.bus)
 
 
 
