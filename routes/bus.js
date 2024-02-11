@@ -22,6 +22,7 @@ router.get('/getAllBus', bus_C.getAllBus)
 router.patch('/updateBus', bus_C.updateBus)
 router.get('/:id', bus_C.getBus)
 router.post('/getArretBus', bus_C.getArretBus)
+router.post('/getArretBusNbpa', bus_C.getArretBusNbpa)
 
 
 
