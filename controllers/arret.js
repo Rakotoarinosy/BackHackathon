@@ -316,11 +316,43 @@ exports.getAllArret = async (req, res, next) => {
 };
 
 
+exports.getArretByToken = async (token) => {
 
-
-
-
-
-
-
-
+    try {
+      const decodedToken = jwt.decode(token);
+      
+      
+      if (!decodedToken) {
+  
+      // Si le token est invalide ou non décodé, vous pouvez renvoyer une réponse appropriée.
+      return res.status(400).json({ error: 'Invalid token' });
+  
+      }
+  
+      const { id } = decodedToken;
+        
+        const controlleurArret = await prisma.controlleurArret.findMany({
+          where: {
+            userId: Number(id),
+          },
+          include:{
+            arret: true
+          }
+        })
+  
+        if (controlleurArret.length == 0) {
+          throw new UserError(`L\'utilisateur n\'existe pas`, 0)
+      
+        }
+      
+        console.log(controlleurArret)
+        return controlleurArret[0]
+      
+      
+    } catch (error) {
+      // En cas d'erreur lors du décodage du token, vous pouvez renvoyer une réponse d'erreur.
+      return  'Internal server error' 
+    }
+  
+  }
+  
