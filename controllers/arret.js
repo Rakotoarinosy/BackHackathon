@@ -1,7 +1,7 @@
 
 const { PrismaClient } = require('@prisma/client')
 
-
+const jwt = require('jsonwebtoken')
 
 const prisma = new PrismaClient()
 const { UserError, RequestError } = require('../error/customError');
@@ -41,7 +41,6 @@ exports.addPersonne = async (req, res, next) => {
 };
 
 exports.removePersonne = async (req, res, next) => {
-    const typeBusId = await getTypeBusId(req.body.token)
     try {
         const rep = await prisma.typeBusArret.findMany({
                 where: {
@@ -294,54 +293,6 @@ const getNomBus = async (typeBusArret)  => {
 
       return rep.nom
 }
-
-
-
-const getTypeBusId = async (token) => {
-
-    try {
-      const decodedToken = jwt.decode(token);
-      
-      
-      if (!decodedToken) {
-  
-      // Si le token est invalide ou non décodé, vous pouvez renvoyer une réponse appropriée.
-      return res.status(400).json({ error: 'Invalid token' });
-  
-      }
-  
-      const { id } = decodedToken;
-        
-        const userBus = await prisma.userBus.findMany({
-          where: {
-            userId: Number(id),
-          },
-          include:{
-            bus: {
-                include:{
-                    typeBus: true
-                }
-            }
-          }
-        })
-  
-        if (user.length == 0) {
-          throw new UserError(`L\'utilisateur n\'existe pas`, 0)
-      
-        }
-        console.log("++++++++++++++")
-
-        console.log(userBus)
-        return "user[0].id"
-      
-      
-    } catch (error) {
-      // En cas d'erreur lors du décodage du token, vous pouvez renvoyer une réponse d'erreur.
-      return  'Internal server error' 
-    }
-  
-  }
-  
 
 
 

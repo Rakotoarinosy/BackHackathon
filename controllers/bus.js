@@ -129,17 +129,16 @@ exports.getArretBus = async (req, res, next) => {
         rep.map((element) => { 
                 data.push({
                 "id": element.id,
+                "typeBusId":element.typeBusId,
                 "arret":element.arret.nom,
                 "nbpa":element.nbpa
                 })
         })
-
             res.json(data)
     } catch (error) {
         next(error)
     }
 };
-
 
 
 const getUserByToken = async (token) => {
