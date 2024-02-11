@@ -22,6 +22,7 @@ model User {
   userBus                     userBus[]
   userArret                   userArret[]
   userTypeBus                 UserTypeBus[]
+  controlleurArret            ControlleurArret[]
 }
 
 
@@ -96,6 +97,8 @@ model Arret{
   busCheckPoint               busCheckPoint[]
   coordonneeArret             CoordonneeArret[]
   userArret                   userArret[]
+  controlleurArret            ControlleurArret[]
+
 }
 
 model TypeBusArret {
@@ -170,4 +173,12 @@ model UserTypeBus {
   date                        DateTime                  @default(now())
   typeBus                     TypeBus                     @relation(fields: [typeBusId], references: [id])
   user                        User                      @relation(fields: [userId], references: [id])
+}
+
+model ControlleurArret{
+  id                          Int                       @id @default(autoincrement())
+  userId                      Int
+  arretId                     Int
+  user                        User                      @relation(fields: [userId], references: [id])
+  arret                       Arret                     @relation(fields: [arretId],references: [id])
 }

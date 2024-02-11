@@ -19,10 +19,10 @@ PUT  http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-    "nom": "user1",
-    "email": "user1@gmail.com",
-    "password": "azerty",
-    "roleId": 1
+    "nom": "controlleur",
+    "email": "controlleur@gmail.com",
+    "password": "controlleur",
+    "roleId": 2
 } 
 
 ###
@@ -234,13 +234,13 @@ get http://localhost:5000/arret/getTrajet/1
 
 //GET TRAJET BY ARRET
 
-###
+### 
 post http://localhost:5000/arret/getTrajetByArret
 Content-Type: application/json 
 
 {
    "start": "Ambohijatovo", 
-   "end" : "Gazety" 
+   "end" : "Antsahabe"  
 }
 
 
@@ -248,3 +248,8 @@ Content-Type: application/json
 //GET ALL ARRET
 ###
 get http://localhost:5000/arret/getAllArret
+
+
+//GET ALL BUS
+###
+get http://localhost:5000/bus/getAllBus
