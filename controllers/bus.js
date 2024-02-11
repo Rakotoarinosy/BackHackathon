@@ -189,3 +189,88 @@ const getUserByToken = async (token) => {
     })
     return image.nom
   }
+
+/*
+exports.getArretBusNbpa = async (req,res,next) => {
+    try {
+
+        const userId = await getUserByToken(req.body.token)
+        console.log(userId)
+
+        console.log("getUserByToken")
+        /*const typeBus = await prisma.userTypeBus.findMany({
+            where:{
+                userId:userId
+            },
+            include:{
+                bus:{
+                    include:{
+                        typeBus:{
+                            include:{
+                                typeBusArret:{
+                                    include:{
+                                        arret:true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        res.json("typeBus")
+
+    } catch (error) {
+        next(error)
+    }   
+
+}
+        */
+exports.getArretBusNbpa = async (req, res, next) => {
+    try {
+        const userId = getUserByToken(req.params.token);
+        console.log(userId);
+        const typeBuses = await prisma.typeBus.findMany({
+            include: {
+                bus: {
+                    include: {
+                        typeBus: {
+                            include: {
+                                typeBusArret: {
+                                    include: {
+                                        arret: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            where: {
+                userTypeBus: {
+                    some: {
+                        userId: userId
+                    }
+                }
+            }
+        });
+
+        // Extraction des données pour nbpa et arretNom
+        const arretBusNbpa = typeBuses.reduce((acc, typeBus) => {
+            typeBus.bus.forEach(bus => {
+                bus.typeBus.typeBusArret.forEach(typeBusArret => {
+                    acc.push({
+                        nbpa: typeBusArret.nbpa,
+                        arretNom: typeBusArret.arret.nom
+                    });
+                });
+            });
+            return acc;
+        }, []);
+
+        res.json(arretBusNbpa);
+    } catch (error) {
+        console.error('Error fetching typeBuses:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
