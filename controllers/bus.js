@@ -77,7 +77,11 @@ exports.updateBus = async (req, res, next) => {
 
 exports.getAllBus = async (req, res, next) => {
     try {
-        const bus = await prisma.bus.findMany()
+        const bus = await prisma.bus.findMany({
+            include:{
+                typeBus : true
+            }
+        })
        
         res.json({bus})
     } catch (error) {
