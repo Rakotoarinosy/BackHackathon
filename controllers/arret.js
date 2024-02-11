@@ -230,7 +230,6 @@ exports.getTrajetByArret = async (req, res, next) => {
                 }
 
                 if(estDansleTrajet == true){
-
                     let data={
                         "nomArret":elem.arret.nom,
                         "lat": elem.arret.coordonneeArret[0].coordonnee.lat,
@@ -254,6 +253,7 @@ exports.getTrajetByArret = async (req, res, next) => {
             
         let bestArret = coordonnee[0][1].nomArret
         let bestDif = 0
+
             if(coordonnee.length <= 3){
                 console.log(coordonnee[0][0].nbpa)
                 if((coordonnee[0][0].nbpa - coordonnee[0][1].nbpa) < -10 ) {
@@ -262,12 +262,22 @@ exports.getTrajetByArret = async (req, res, next) => {
                            bestArret=coordonnee[0][0].nomArret
                 }
             } 
+            if(coordonnee.length <1 ){
                 if((coordonnee[0][2].nbpa - coordonnee[0][1].nbpa) < -10 ) {
                     bestArret = 0;
                     if(bestDif < coordonnee[0][2].nbpa )
                     bestDif= coordonnee[0][2].nbpa - coordonnee[0][1].nbpa;
                        bestArret = coordonnee[0][2].nomArret
                 }
+            } 
+
+            if(bestArret != coordonnee[0][0].nomArret){
+                var coordonneeSansPremier = coordonnee.slice(1);
+
+                // Utilisation de shift si vous n'avez pas besoin du tableau original
+                var premierElementSupprime = coordonnee[0].shift();
+            }
+            
 
                 let data = {
                     "coordonnee": coordonnee[0],

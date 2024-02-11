@@ -3,7 +3,7 @@ const createError = require('http-errors');
 const morgan = require('morgan');
 require('dotenv').config();
 const cors = require('cors')
-const io = require('socket.io')(8081, {
+const io = require('socket.io')(8080, {
   cors: {
       origin: 'http://localhost:3000',
   }
