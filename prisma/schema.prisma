@@ -56,7 +56,8 @@ model Image {
   id                          Int                       @id @default(autoincrement())
   nom                         String
   user_image                  UserImage[]
-
+  arret_image                 ArretImage[]
+  bus_image                   BusImage[]
 }
 
 model UserImage {
@@ -76,6 +77,7 @@ model TypeBus {
   busCheckPoint               busCheckPoint[]
   busTypeBus                  BusTypeBus[]
   userTypeBus                 UserTypeBus[]
+  bus_image                         BusImage[]
 }
 
 model Bus {
@@ -96,6 +98,7 @@ model Arret{
   busCheckPoint               busCheckPoint[]
   coordonneeArret             CoordonneeArret[]
   userArret                   userArret[]
+  arret                       ArretImage[]
 }
 
 model TypeBusArret {
@@ -170,4 +173,23 @@ model UserTypeBus {
   date                        DateTime                  @default(now())
   typeBus                     TypeBus                     @relation(fields: [typeBusId], references: [id])
   user                        User                      @relation(fields: [userId], references: [id])
+}
+
+
+model ArretImage {
+  id                          Int                       @id @default(autoincrement())
+  imageId                     Int
+  arretId                     Int
+  date                        DateTime                  @default(now())
+  image                       Image                     @relation(fields: [imageId], references: [id])
+  arret                       Arret                     @relation(fields: [arretId], references: [id])
+}
+
+model BusImage {
+  id                          Int                       @id @default(autoincrement())
+  imageId                     Int
+  busId                       Int
+  date                        DateTime                  @default(now())
+  image                       Image                     @relation(fields: [imageId], references: [id])
+  bus                         TypeBus                   @relation(fields: [busId], references: [id])
 }

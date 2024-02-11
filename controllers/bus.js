@@ -190,42 +190,6 @@ const getUserByToken = async (token) => {
     return image.nom
   }
 
-/*
-exports.getArretBusNbpa = async (req,res,next) => {
-    try {
-
-        const userId = await getUserByToken(req.body.token)
-        console.log(userId)
-
-        console.log("getUserByToken")
-        /*const typeBus = await prisma.userTypeBus.findMany({
-            where:{
-                userId:userId
-            },
-            include:{
-                bus:{
-                    include:{
-                        typeBus:{
-                            include:{
-                                typeBusArret:{
-                                    include:{
-                                        arret:true
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        })
-        res.json("typeBus")
-
-    } catch (error) {
-        next(error)
-    }   
-
-}
-        */
 exports.getArretBusNbpa = async (req, res, next) => {
     try {
         const userId = getUserByToken(req.params.token);
