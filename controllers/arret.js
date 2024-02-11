@@ -315,11 +315,10 @@ exports.getAllArret = async (req, res, next) => {
     }
 };
 
-
-exports.getArretByToken = async (token) => {
+exports.getArretByToken = async (req, res, next) => {
 
     try {
-      const decodedToken = jwt.decode(token);
+      const decodedToken = jwt.decode(req.body.token);
       
       
       if (!decodedToken) {
@@ -345,13 +344,14 @@ exports.getArretByToken = async (token) => {
       
         }
       
-        console.log(controlleurArret)
-        return controlleurArret[0]
+        res.json({
+            "arretId":controlleurArret[0].arretId,
+            "nomArret": controlleurArret[0].arret.nom}) 
       
       
     } catch (error) {
       // En cas d'erreur lors du décodage du token, vous pouvez renvoyer une réponse d'erreur.
-      return  'Internal server error' 
+      next(error) 
     }
   
   }

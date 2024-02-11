@@ -41,8 +41,8 @@ POST http://localhost:5000/auth/login
 Content-Type: application/json
 
 {
-    "email": "user1@gmail.com",
-    "password": "azerty"
+    "email": "controlleur@gmail.com",
+    "password": "controlleur"
 } 
 
 
@@ -183,7 +183,7 @@ Content-Type: application/json
 
 //GET ARRET BUS
 
-### 
+###  
 post http://localhost:5000/bus/getArretBus
 Content-Type: application/json
 
@@ -254,3 +254,10 @@ get http://localhost:5000/arret/getAllArret
 ###
 get http://localhost:5000/bus/getAllBus 
 //
+
+
+//GET ALL ARRET
+###
+post http://localhost:5000/arret/getArretByToken 
+
+{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwibm9tIjoiY29udHJvbGxldXIiLCJlbWFpbCI6ImNvbnRyb2xsZXVyQGdtYWlsLmNvbSIsImlhdCI6MTcwNzY1MjU3OCwiZXhwIjoxNzA3NjU2MTc4fQ.W4_IDkOGkaXAXfaE1Df_6ff1w54C5I2xkKnL20yJsjU"}
