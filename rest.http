@@ -19,9 +19,9 @@ PUT  http://localhost:5000/user/register
 Content-Type: application/json
 
 {
-    "nom": "newUser",
-    "email": "rak@gmail.com",
-    "password": "123456",
+    "nom": "user1",
+    "email": "user1@gmail.com",
+    "password": "azerty",
     "roleId": 1
 } 
 
@@ -41,8 +41,8 @@ POST http://localhost:5000/auth/login
 Content-Type: application/json
 
 {
-    "email": "rak@gmail.com",
-    "password": "123456"
+    "email": "user1@gmail.com",
+    "password": "azerty"
 } 
 
 
@@ -177,7 +177,7 @@ post http://localhost:5000/user/UserByToken
 Content-Type: application/json
 
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwibm9tIjoibmV3VXNlciIsImVtYWlsIjoicmFrQGdtYWlsLmNvbSIsImlhdCI6MTcwNzU3Mjg4NiwiZXhwIjoxNzA3NTc2NDg2fQ.kpKbfNIBeaCn8QXmksecxEVcajvPHFV14EVPcE7XyVA"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibm9tIjoidXNlcjEiLCJlbWFpbCI6InVzZXIxQGdtYWlsLmNvbSIsImlhdCI6MTcwNzYxOTM3NywiZXhwIjoxNzA3NjIyOTc3fQ.U5SlVnvOG20uXASEccYdNavPJTIVWXBCDc22ChP5BnU"
 }
 
 //ADD PERSONNE

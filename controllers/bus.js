@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken')
 const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
@@ -93,11 +94,21 @@ exports.getAllBus = async (req, res, next) => {
 };
 
 
-exports.getArretBus = async (req, res, next) => {
-    try {
-        const busId = parseInt(req.body.id)
-        const arret = await prisma.typeBusArret.findMany({
-          where: {
+exports.getArretBus = async (req, res, next) => {  
+
+  const token = req.body.token
+  try {
+  const decodedToken = jwt.decode(token);
+    
+  if (decodedToken) {
+    const { id, email, nom } = decodedToken;
+  }
+
+  
+
+  const busId = parseInt(req.body.id)
+  const arret = await prisma.typeBusArret.findMany({
+        where: {
             typeBusId: parseInt(busId),
           },
           include :{
