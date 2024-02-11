@@ -44,6 +44,9 @@ exports.getBus = async (req, res, next) => {
               id: Number(id),
     
             },
+            include:{
+                typeBus : true
+            }
     
           })
           res.json(bus)
