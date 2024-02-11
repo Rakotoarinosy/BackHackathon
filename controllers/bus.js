@@ -84,3 +84,25 @@ exports.getAllBus = async (req, res, next) => {
         next(error)
     }
 };
+
+
+exports.getArretBus = async (req, res, next) => {
+    try {
+        const busId = parseInt(req.body.id)
+        const arret = await prisma.typeBusArret.findMany({
+          where: {
+            typeBusId: parseInt(busId),
+          },
+          include :{
+            arret: true
+          }
+        })
+        
+        const arrets = arret.map(typeBusArret => typeBusArret.arret);
+
+       
+        res.json({arrets})
+    } catch (error) {
+        next(error)
+    }
+};
