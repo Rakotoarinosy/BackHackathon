@@ -41,6 +41,7 @@ exports.addPersonne = async (req, res, next) => {
 };
 
 exports.removePersonne = async (req, res, next) => {
+    const typeBusId = await getTypeBusId(req.body.token)
     try {
         const rep = await prisma.typeBusArret.findMany({
                 where: {
@@ -311,9 +312,16 @@ const getTypeBusId = async (token) => {
   
       const { id } = decodedToken;
         
-        const user = await prisma.userBus.findMany({
+        const userBus = await prisma.userBus.findMany({
           where: {
-            id: Number(id),
+            userId: Number(id),
+          },
+          include:{
+            bus: {
+                include:{
+                    typeBus: true
+                }
+            }
           }
         })
   
@@ -321,9 +329,10 @@ const getTypeBusId = async (token) => {
           throw new UserError(`L\'utilisateur n\'existe pas`, 0)
       
         }
-      
-      
-        return user[0].id
+        console.log("++++++++++++++")
+
+        console.log(userBus)
+        return "user[0].id"
       
       
     } catch (error) {

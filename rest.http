@@ -36,7 +36,7 @@ Content-Type: application/json
 } 
 
 
-###
+### 
 POST http://localhost:5000/auth/login
 Content-Type: application/json
 
@@ -183,7 +183,7 @@ Content-Type: application/json
 
 //GET ARRET BUS
 
-###
+### 
 post http://localhost:5000/bus/getArretBus
 Content-Type: application/json
 
@@ -214,7 +214,9 @@ Content-Type: application/json
 {
   "arretId": 1,
   "typeBusId": 1,
-  "nb": 1
+  "nb": 1,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibm9tIjoidXNlcjEiLCJlbWFpbCI6InVzZXIxQGdtYWlsLmNvbSIsImlhdCI6MTcwNzYxOTM3NywiZXhwIjoxNzA3NjIyOTc3fQ.U5SlVnvOG20uXASEccYdNavPJTIVWXBCDc22ChP5BnU"
+
 }
 
 //GET NB PERSONNE
