@@ -4,7 +4,7 @@
 GET  http://localhost:5000/user/deleteUser/30
 
 ###
-PATCH  http://localhost:5000/user/deleteUser/30
+PATCH  http://localhost:5000/user/dedleteUser/30
 
 POST http://localhost:5000/user/userRole
 Content-Type: application/json
@@ -207,16 +207,14 @@ Content-Type: application/json
 
 //REMOVE PERSONEE
 
-###
+###  
 post http://localhost:5000/arret/removePersonne
 Content-Type: application/json
 
 {
   "arretId": 1,
   "typeBusId": 1,
-  "nb": 1,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibm9tIjoidXNlcjEiLCJlbWFpbCI6InVzZXIxQGdtYWlsLmNvbSIsImlhdCI6MTcwNzYxOTM3NywiZXhwIjoxNzA3NjIyOTc3fQ.U5SlVnvOG20uXASEccYdNavPJTIVWXBCDc22ChP5BnU"
-
+  "nb": 1
 }
 
 //GET NB PERSONNE
@@ -244,3 +242,9 @@ Content-Type: application/json
    "start": "Ambohijatovo", 
    "end" : "Gazety" 
 }
+
+
+
+//GET ALL ARRET
+###
+get http://localhost:5000/arret/getAllArret

@@ -294,6 +294,17 @@ const getNomBus = async (typeBusArret)  => {
       return rep.nom
 }
 
+exports.getAllArret = async (req, res, next) => {
+    try {
+        const arret = await prisma.arret.findMany()
+       
+        res.json(arret)
+    } catch (error) {
+        next(error)
+        
+    }
+};
+
 
 
 

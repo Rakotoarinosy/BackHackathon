@@ -25,6 +25,9 @@ router.post('/removePersonne', controlleur_C.removePersonne)
 
 router.get('/getTrajet/:id', controlleur_C.getTrajet)
 router.post('/getTrajetByArret', controlleur_C.getTrajetByArret)
+router.get('/getAllArret', controlleur_C.getAllArret)
+
+
 
 //router.get('/arret', arret_C.getAllArret)
 
