@@ -142,20 +142,6 @@ exports.getArretBus = async (req, res, next) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const getUserByToken = async (token) => {
 
     try {

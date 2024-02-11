@@ -92,7 +92,8 @@ exports.login = async (req, res, next) => {
 
 
         return res.json({
-          access_token: token,        
+          access_token: token,
+          role: role      
         })
       
       

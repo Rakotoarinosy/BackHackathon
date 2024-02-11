@@ -296,6 +296,46 @@ const getNomBus = async (typeBusArret)  => {
 
 
 
+const getTypeBusId = async (token) => {
+
+    try {
+      const decodedToken = jwt.decode(token);
+      
+      
+      if (!decodedToken) {
+  
+      // Si le token est invalide ou non décodé, vous pouvez renvoyer une réponse appropriée.
+      return res.status(400).json({ error: 'Invalid token' });
+  
+      }
+  
+      const { id } = decodedToken;
+        
+        const user = await prisma.userBus.findMany({
+          where: {
+            id: Number(id),
+          }
+        })
+  
+        if (user.length == 0) {
+          throw new UserError(`L\'utilisateur n\'existe pas`, 0)
+      
+        }
+      
+      
+        return user[0].id
+      
+      
+    } catch (error) {
+      // En cas d'erreur lors du décodage du token, vous pouvez renvoyer une réponse d'erreur.
+      return  'Internal server error' 
+    }
+  
+  }
+  
+
+
+
 
 
 
