@@ -97,6 +97,9 @@ exports.getTrajet = async (req, res, next) => {
         const rep = await prisma.typeBusArret.findMany({
             where: {
                 typeBusId: req.body.typeBusId
+            },
+            orderBy: {
+                id:'asc',
             }
         }) 
 
@@ -210,7 +213,6 @@ exports.getTrajetByArret = async (req, res, next) => {
                 //console.log(elem )
 
                 if(elem.arret.nom ==  start){
-                    console.log(elem.arret.nom + " == "+ start)
                     estDansleTrajet = true
                     if(index >= 1){
                         const targetId = index;
@@ -228,7 +230,6 @@ exports.getTrajetByArret = async (req, res, next) => {
                 }
 
                 if(estDansleTrajet == true){
-                    console.log()
 
                     let data={
                         "nomArret":elem.arret.nom,
@@ -254,6 +255,17 @@ exports.getTrajetByArret = async (req, res, next) => {
                 "coordonnee": coordonnee[0],
                 "bus": bus[0]
             }
+        let bestArret = 1
+        lem:
+            if(coordonnee.length <= 3){
+                if((coordonnee[1].nbpa - coordonnee[0].nbpa) > 10 ) {
+                        bestArret = 0;
+                        bestDif=coordonnee[1].nbpa - coordonnee[0].nbpa;
+                }
+            
+            }
+    
+
 
         return res.json(data)
 
