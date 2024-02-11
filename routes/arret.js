@@ -22,8 +22,12 @@ router.use( (req, res, next) => {
 router.post('/getPersonne', controlleur_C.getPersonnePa)
 router.post('/addPersonne', controlleur_C.addPersonne)
 router.post('/removePersonne', controlleur_C.removePersonne)
+
 router.get('/getTrajet/:id', controlleur_C.getTrajet)
 router.post('/getTrajetByArret', controlleur_C.getTrajetByArret)
+
+//router.get('/arret', arret_C.getAllArret)
+
 
 
 
