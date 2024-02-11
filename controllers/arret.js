@@ -206,11 +206,25 @@ exports.getTrajetByArret = async (req, res, next) => {
                 }
               });
 
-              rep.map(async (elem) => {
-                console.log(elem)
+              rep.map(async (elem, index) => {
+                //console.log(elem )
 
                 if(elem.arret.nom ==  start){
+                    console.log(elem.arret.nom + " == "+ start)
                     estDansleTrajet = true
+                    if(index >= 1){
+                        const targetId = index;
+                        const foundObject = rep.find(obj => obj.id === targetId);
+    
+                        let data={
+                            "nomArret":foundObject.arret.nom,
+                            "lat": foundObject.arret.coordonneeArret[0].coordonnee.lat,
+                            "long": foundObject.arret.coordonneeArret[0].coordonnee.long,
+                            "nbpa": foundObject.nbpa
+                        }
+                        oneCoordonnee.push(data)
+    
+                    }
                 }
 
                 if(estDansleTrajet == true){

@@ -17,7 +17,7 @@ router.use( (req, res, next) => {
 
 
 
-router.post('/register', auth_C.register)
+router.post('/login', auth_C.login)
 
 
 

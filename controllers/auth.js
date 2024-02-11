@@ -9,7 +9,7 @@ const prisma = new PrismaClient()
 const { AuthenticationError } = require('../error/customError')
 
 
-exports.register = async (req, res, next) => {
+exports.login = async (req, res, next) => {
   
     try {
 
