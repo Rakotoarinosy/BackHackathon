@@ -252,4 +252,5 @@ get http://localhost:5000/arret/getAllArret
 
 //GET ALL BUS
 ###
-get http://localhost:5000/bus/getAllBus
+get http://localhost:5000/bus/getAllBus 
+//
