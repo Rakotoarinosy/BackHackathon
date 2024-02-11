@@ -223,6 +223,6 @@ post http://localhost:5000/arret/getTrajetByArret
 Content-Type: application/json
 
 {
-   "start": "Mahamasina",
-   "end" : "Tsiadana akondro"
+   "start": "Mascote",
+   "end" : "Gazety"
 }

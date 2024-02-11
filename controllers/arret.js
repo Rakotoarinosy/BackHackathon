@@ -4,7 +4,8 @@ const { PrismaClient } = require('@prisma/client')
 
 
 const prisma = new PrismaClient()
-const { UserError, RequestError } = require('../error/customError')
+const { UserError, RequestError } = require('../error/customError');
+const { cp } = require('fs');
 
 
 
@@ -142,6 +143,7 @@ exports.getTrajetByArret = async (req, res, next) => {
 
         let start = req.body.start
         let end = req.body.end
+
 // GET ID COORDONNEE 
         const rep = await prisma.arret.findMany({
             include: {
@@ -158,7 +160,6 @@ exports.getTrajetByArret = async (req, res, next) => {
               ]
             }
           });
-          console.log(rep)
           let elementCount = new Map();
           let duplicates = [];
 
@@ -174,18 +175,90 @@ exports.getTrajetByArret = async (req, res, next) => {
             })
           )
 
+          let coordonnee = []
+          let bus = []
           await Promise.all(
-            duplicates.map((element)  => {
-              console.log(element)
+            duplicates.map(async (element)  => {
+            let oneCoordonnee = []
+            let oneBus = []
+            let nomBus = await getNomBus(element)
+            oneBus.push(nomBus)
+              let estDansleTrajet = false
+              const rep = await prisma.typeBusArret.findMany({
+                include: {
+                    arret: {
+                        include: {
+                            coordonneeArret: {
+                                include: {
+                                    coordonnee: true
+                                }
+                            }
+                    }
+                }, typeBus: {
+                    include: {
+                        typeBusArret: true
+                    }
+                }
+
+                },
+                orderBy: {
+                    id: 'asc'
+                }
+              });
+
+              rep.map(async (elem) => {
+                console.log(elem)
+
+                if(elem.arret.nom ==  start){
+                    estDansleTrajet = true
+                }
+
+                if(estDansleTrajet == true){
+                    console.log()
+
+                    let data={
+                        "nomArret":elem.arret.nom,
+                        "lat": elem.arret.coordonneeArret[0].coordonnee.lat,
+                        "long": elem.arret.coordonneeArret[0].coordonnee.long,
+                        "nbpa": elem.nbpa
+                    }
+                    oneCoordonnee.push(data)
+
+                    //oneCoordonnee.push(elem.arret.nom)
+                }
+               
+               
+                if(elem.arret.nom ==  end){
+                    estDansleTrajet = false
+                }
+              })
+              coordonnee.push(oneCoordonnee)
+              bus.push(oneBus)
             }))
 
-        return res.json(duplicates)
+            let data = {
+                "coordonnee": coordonnee[0],
+                "bus": bus[0]
+            }
+
+        return res.json(data)
 
     } catch (error) {
         next(error)
     }
 
 };
+
+
+const getNomBus = async (typeBusArret)  => {
+    const rep = await prisma.typeBus.findUnique({
+        where: {
+            id: typeBusArret 
+        }
+      });
+
+      return rep.nom
+}
 
 
 
