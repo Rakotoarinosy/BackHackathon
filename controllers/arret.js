@@ -251,21 +251,29 @@ exports.getTrajetByArret = async (req, res, next) => {
               bus.push(oneBus)
             }))
 
-            let data = {
-                "coordonnee": coordonnee[0],
-                "bus": bus[0]
-            }
-        let bestArret = 1
-        lem:
-            if(coordonnee.length <= 3){
-                if((coordonnee[1].nbpa - coordonnee[0].nbpa) > 10 ) {
-                        bestArret = 0;
-                        bestDif=coordonnee[1].nbpa - coordonnee[0].nbpa;
-                }
             
-            }
-    
+        let bestArret = coordonnee[0][1].nomArret
+        let bestDif = 0
+            if(coordonnee.length <= 3){
+                console.log(coordonnee[0][0].nbpa)
+                if((coordonnee[0][0].nbpa - coordonnee[0][1].nbpa) < -10 ) {
+                        bestArret = 0;
+                        bestDif= coordonnee[0][0].nbpa - coordonnee[0][1].nbpa;
+                           bestArret=coordonnee[0][0].nomArret
+                }
+            } 
+                if((coordonnee[0][2].nbpa - coordonnee[0][1].nbpa) < -10 ) {
+                    bestArret = 0;
+                    if(bestDif < coordonnee[0][2].nbpa )
+                    bestDif= coordonnee[0][2].nbpa - coordonnee[0][1].nbpa;
+                       bestArret = coordonnee[0][2].nomArret
+                }
 
+                let data = {
+                    "coordonnee": coordonnee[0],
+                    "bus": bus[0],
+                    "bestArret": bestArret
+                }
 
         return res.json(data)
 

@@ -180,13 +180,28 @@ Content-Type: application/json
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibm9tIjoidXNlcjEiLCJlbWFpbCI6InVzZXIxQGdtYWlsLmNvbSIsImlhdCI6MTcwNzYxOTM3NywiZXhwIjoxNzA3NjIyOTc3fQ.U5SlVnvOG20uXASEccYdNavPJTIVWXBCDc22ChP5BnU"
 }
 
+
+//GET ARRET BUS
+
+###
+post http://localhost:5000/bus/getArretBus
+Content-Type: application/json
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibm9tIjoidXNlcjEiLCJlbWFpbCI6InVzZXIxQGdtYWlsLmNvbSIsImlhdCI6MTcwNzYxOTM3NywiZXhwIjoxNzA3NjIyOTc3fQ.U5SlVnvOG20uXASEccYdNavPJTIVWXBCDc22ChP5BnU"
+}
+
+
+
+
+
 //ADD PERSONNE
 ###
 post http://localhost:5000/arret/addPersonne
 Content-Type: application/json
 
 {
-  "arretId": 1,
+  "arretId": 8,
   "typeBusId": 1
 }
 
@@ -218,11 +233,12 @@ get http://localhost:5000/arret/getTrajet/1
 
 
 //GET TRAJET BY ARRET
+
 ###
 post http://localhost:5000/arret/getTrajetByArret
-Content-Type: application/json
+Content-Type: application/json 
 
 {
-   "start": "Mascote",
-   "end" : "Gazety"
+   "start": "Ambohijatovo", 
+   "end" : "Gazety" 
 }

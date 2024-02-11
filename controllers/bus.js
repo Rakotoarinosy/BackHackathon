@@ -3,8 +3,6 @@ const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 
-
-
 exports.addBus = async (req, res, next) => {
     try {
     const newBus= {
@@ -96,31 +94,112 @@ exports.getAllBus = async (req, res, next) => {
 
 exports.getArretBus = async (req, res, next) => {  
 
-  const token = req.body.token
-  try {
-  const decodedToken = jwt.decode(token);
-    
-  if (decodedToken) {
-    const { id, email, nom } = decodedToken;
-  }
-
-  
-
-  const busId = parseInt(req.body.id)
-  const arret = await prisma.typeBusArret.findMany({
-        where: {
-            typeBusId: parseInt(busId),
-          },
-          include :{
-            arret: true
-          }
-        })
-        
-        const arrets = arret.map(typeBusArret => typeBusArret.arret);
-
+    try{
+        const userId = getUserByToken(req.params.token)
        
-        res.json({arrets})
+        const userBus = await prisma.userBus.findMany({
+            where:{
+                userId:userId
+            },
+            orderBy:{
+                id: 'asc'
+            },
+            include:{
+                bus : {
+                    include:{
+                        typeBus:{
+                            include:{
+                                typeBusArret:{
+                                    include:{
+                                        arret: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+
+        let rep = []
+        userBus.map(async (element) => { 
+            rep= element.bus.typeBus.typeBusArret
+        })
+        let data = []
+        rep.map((element) => { 
+                data.push({
+                "id": element.id,
+                "arret":element.arret.nom,
+                "nbpa":element.nbpa
+                })
+        })
+
+            res.json(data)
     } catch (error) {
         next(error)
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const getUserByToken = async (token) => {
+
+    try {
+      const decodedToken = jwt.decode(token);
+      
+      
+      if (!decodedToken) {
+  
+      // Si le token est invalide ou non décodé, vous pouvez renvoyer une réponse appropriée.
+      return res.status(400).json({ error: 'Invalid token' });
+  
+      }
+  
+      const { id } = decodedToken;
+        
+        const user = await prisma.user.findUnique({
+          where: {
+            id: Number(id),
+          }
+        })
+  
+        if (user.length == 0) {
+          throw new UserError(`L\'utilisateur n\'existe pas`, 0)
+      
+        }
+      
+      
+        return user[0].id
+      
+      
+    } catch (error) {
+      // En cas d'erreur lors du décodage du token, vous pouvez renvoyer une réponse d'erreur.
+      return  'Internal server error' 
+    }
+  
+  }
+  
+  
+  const getImageNom = async (idImage) => {
+    const image = await prisma.image.findUnique({
+      where: {
+        id: parseInt(idImage),
+      }
+      
+    })
+    return image.nom
+  }
